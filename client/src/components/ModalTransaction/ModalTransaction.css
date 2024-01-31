@@ -1,0 +1,92 @@
+
+
+.modal_transaction-window {
+    position: absolute;
+    border-radius: 10px;
+    width: 550px;
+    height: 550px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(14, 14, 14);
+
+}
+
+.modal_transaction-close {
+    position: absolute;
+    cursor: pointer;
+    right: 20px;
+    top: 20px;
+    text-align: center;
+    font-size: 23px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.modal_input-container {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 80px;
+    flex-direction: column;
+}
+
+.modal_input-title {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 22px;
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+
+
+
+.modal_input {
+    width: 380px;
+    height: 48px;
+    background-color: rgba(130, 130, 130, 0.047);
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 22px;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+}
+
+.modal_input::-webkit-inner-spin-button,
+.modal_input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.modal_title {
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+.modal_transaction-submit {
+    cursor: pointer;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: none;
+    background-color: rgba(29, 133, 84, 0.044);
+    box-shadow: 0px 0px 15px rgba(7, 95, 35, 0.575);
+    border-radius: 10px;
+    font-size: 16px;
+    width: 100px;
+    height: 50px;
+}
+
+.modal_transaction-submit:hover {
+    transform: scale(1.05);
+}
+
+
+.modal_input:focus {
+    box-shadow: 0px 0px 15px rgba(94, 53, 164, 0.203);
+    outline: none;
+}

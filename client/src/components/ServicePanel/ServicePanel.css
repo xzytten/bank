@@ -1,0 +1,67 @@
+.service-panel {
+    margin: 0 auto;
+    width: 350px;
+    margin-top: 65px;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.transfer {
+    width: 60px;
+    position: relative;
+    height: 60px;
+    border-radius: 30%;
+    transition: transform 0.25s;
+}
+
+.transfer:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.transfer-card {
+    background: rgba(199, 196, 17, 0.066);
+    box-shadow: 0px 0px 15px rgba(199, 196, 17, 0.3);
+}
+
+.transfer-phone {
+    background: rgba(46, 126, 230, 0.05);
+    box-shadow: 0px 0px 15px rgba(46, 126, 230, 0.3);
+}
+
+.transfer-other {
+    background: rgba(255, 145, 0, 0.035);
+    box-shadow: 0px 0px 15px rgba(255, 145, 0, 0.198);
+}
+
+.transfer-phone-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background: url('../../img/svg/transfer-phone.png') no-repeat;
+    background-size: 40px 40px;
+}
+
+.transfer-card-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background: url('../../img/svg/transfer-card.png') no-repeat;
+    background-size: 40px 40px;
+}
+
+
+.transfer-other-icon {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
+    background: url('../../img/svg/transfer-other.png') no-repeat;
+    background-size: 28px 28px;
+}

@@ -1,0 +1,124 @@
+.form_container-reg {
+    background-color: rgba(0, 0, 0, 0.148);
+    width: 640px;
+    height: 450px;
+    margin: 0 auto;
+    border-radius: 30px;
+    box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);
+}
+
+.title_reg {
+    padding: 20px;
+}
+
+.form_reg {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+
+/* --- img container ---  */
+.image-container {
+    height: 130px;
+    width: 130px;
+    overflow: hidden;
+    border-radius: 50%; 
+    background-color: white;
+    position: relative;
+}
+
+.profile-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.input-file-img {
+    position: absolute;
+    height: 25px;
+    background-color: rgba(53, 53, 53, 0.537);
+    top: 105px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.input-file-img:hover {
+    cursor: pointer;
+    background-color: rgba(53, 53, 53, 0.7);
+}
+
+.label-input_img:hover{
+    cursor: pointer
+}
+
+.input-img {
+    visibility: hidden;
+}
+
+/* --- user info  containter --- */
+
+.inputs-reg-container{
+    display: flex;
+    flex-direction: column;
+}
+.input-reg {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: #131313;
+    outline: none;
+    border: none;
+    text-align: center;
+}
+
+.input-reg_login {}
+
+.form-reg_btn {
+    margin: 0 auto;
+    margin-top: 20px;
+    outline: none;
+    background-color: #131313;
+    color: white;
+    border: none;
+    width: 130px;
+    height: 35px;
+    font-size: 20px;
+    border-radius: 7px;
+}
+
+.form_registr {
+    text-decoration: none;    
+    margin-left: 80%;
+    margin-top:100px ;
+    /* margin-left: 400px;
+    margin-top: 30px; */
+}
+
+
+
+/*--- hover --- */
+
+.input-reg:focus {
+    outline: none;
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(94, 53, 164, 0.211);
+}
+
+.form-reg_btn:hover {
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(94, 53, 164, 0.247);
+    opacity: .9;
+    cursor: pointer;
+}
+
+.form_sign-in:hover {
+    cursor: pointer;
+    opacity: .75;
+}

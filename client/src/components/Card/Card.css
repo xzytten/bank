@@ -1,0 +1,124 @@
+.profile__card-info {
+    background-color: rgba(0, 0, 0, 0.080);
+    height: 300px;
+    width: 685px;
+    display: flex;
+}
+
+.user__card {
+    margin: 30px;
+    margin-left: 80px;
+    background-color: #131313;
+    box-shadow: 7px 3px 13px rgba(0, 0, 0, 0.427);
+    width: 345px;
+    height: 225px;
+    border-radius: 18px;
+    position: relative;
+    transition: transform 0.4s;
+}
+
+.card__balance {
+    font-size: 25px;
+    color: white;
+    margin: 60px;
+    margin-top: 85px;
+    margin-left: 73%;
+}
+
+.card__cash {
+    margin-left: 25px;
+}
+
+.card_cvv {
+    position: absolute;
+    top: 135px;
+    left: 50px;
+    width: 80px;
+    height: 30px;
+    align-items: center;
+    text-align: center;
+    background-color: #131313ef;
+    font-size: 26px;
+    transition: transform 0.4s;
+}
+
+.card__bank {
+    width: 40px;
+    height: 20px;
+    position: relative;
+}
+
+.card__bank-name {
+    position: absolute;
+    font-size: 17px;
+    top: 5px;
+    left: 30px;
+}
+
+.card__bank-name-ico {
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    background: url(../../img/svg/panda-lay.png) no-repeat;
+    background-size: 100%;
+    top: 3px;
+    left: 30px;
+}
+
+.card__number {
+    position: absolute;
+    font-size: 24px;
+    top: 55px;
+    left: 30px;
+    transition: transform 0.2s;
+}
+
+.card__data {
+    position: absolute;
+    font-size: 23px;
+    top: 140px;
+    left: 30px;
+    transition: transform 0.2s;
+}
+
+.master__card-logo {
+    background: url(../../img/svg/MA.svg) no-repeat;
+    position: absolute;
+    width: 65px;
+    height: 50px;
+    top: 140px;
+    right: 40px;
+}
+
+.user__card:hover,
+.card__number:hover,
+.card__data:hover,
+.card_cvv:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+
+.front,
+.back {
+    position: absolute;
+    backface-visibility: hidden;
+    transition: transform 0.5s;
+    transform-origin: center;
+}
+
+.front {
+    transform: rotateY(0deg);
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+.flipped .front {
+    transform: rotateY(180deg);
+}
+
+.flipped .back {
+    transform: rotateY(0deg);
+}

@@ -1,0 +1,78 @@
+.modal-container {
+    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(2, 2, 2, 0.599);
+    backdrop-filter: blur(2px);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.seccessful-container {
+    position: absolute;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background-color: rgb(14, 14, 14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 3;
+    border-radius: 20px;
+}
+
+.seccessful-ico {
+    width: 130px;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+.seccessful-info {
+    font-size: 22px;
+}
+
+
+.pending-container {
+    position: absolute;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    z-index: 3;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #0f0f0f, rgb(23, 23, 23));
+    background-size: 300% 300%;
+    animation: waveBackground 1.5s infinite;
+}
+
+
+@keyframes waveBackground {
+    0% {
+        background-position: 0 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+
+}

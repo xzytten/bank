@@ -1,0 +1,83 @@
+.header {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 200px;
+    border-radius: 10px;
+    position: relative; /* Додано для позиціонування дочірніх елементів */
+}
+
+.header__logo-ico {
+
+    width: 105px;
+    height: 100px;
+    background: url("../../img/svg/panda-logo.png") no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    position: absolute; /* Позиціонуємо абсолютно відносно батьківського елемента */
+    bottom: 9px;
+    left: 2px;
+    z-index: 2; /* Збільште значення z-index для виводу поверх тексту */
+}
+
+.header__logo-name {
+    font-size: 33px;
+    position: absolute;
+    z-index: 1; /* Зменште значення z-index для тексту, щоб його не перекривало фото */
+}
+
+/* ---- profile ---- */
+.you-profile {
+    width: 250px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.you-profile-name {
+    font-size: 20px;
+    margin-top: 9px;
+}
+
+.you-pofile-exit {
+    margin-top: 9px;
+    height: 20px;
+    width: 20px;
+    border: none;
+    cursor: pointer;
+    background: url(../../img/svg/exit_icon.png) no-repeat;
+    background-size: 20px 20px; 
+}
+
+.you-profile-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; 
+    background-size: cover; 
+    background-position: center;
+}
+
+.you-profile-photo-border {
+    border: 2px solid #fff; /* Додайте білу рамку */
+}
+
+.no-logged {
+    display: flex;
+    align-items:center; 
+    justify-content: space-between;
+    width: 150px;
+}
+
+.no-logged-login, .no-logged-register{
+    font-size: 18px;
+    text-decoration: none;
+}
