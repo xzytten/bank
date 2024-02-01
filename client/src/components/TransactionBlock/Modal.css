@@ -1,0 +1,123 @@
+.modal_container {
+    position: absolute;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(2, 2, 2, 0.599);
+    backdrop-filter: blur(2px);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+.modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 420px;
+    width: 660px;
+    border-radius: 18px;
+    position: absolute;
+    position: fixed;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(14, 14, 14);
+    border: 30px;
+    z-index: 101;
+}
+
+.close_modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 20px;
+}
+
+.profile_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container_info {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 30%;
+}
+
+.line {
+    width: 205px;
+    border: 1px solid;
+    box-shadow: 1px 1px 10px rgb(66, 21, 98);
+}
+
+.sum-info {
+    padding-bottom: 0px;
+    margin-bottom: 14px;
+}
+
+.recipient-sum {
+    font-size: 28px;
+    color: rgb(17, 92, 44);
+}
+
+.sender-sum {
+    font-size: 28px;
+    /* color: rgb(66, 21, 98); */
+}
+
+.date {
+    margin-top: 23px;
+    font-size: 18px;
+}
+
+.send-sum {
+    color: rgb(66, 21, 98);
+}
+
+.button {
+    position: absolute;
+    bottom: 50px;
+    position: absolute;
+    border: none;
+    width: 40px;
+    height: 40px;
+    background: url('../../img/svg/again.png') no-repeat;
+    background-size: 40px 40px;
+    cursor: pointer;
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+.profile_img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile_name {
+    margin-top: 25px;
+    font-size: 24px;
+}
+
+.user_card {
+    font-size: 20px;
+    margin-top: 25px;
+}
+
+.sender {
+    box-shadow: 0px 0px 30px rgb(17, 77, 39);
+}
+
+.recipient {
+    box-shadow: 0px 0px 30px rgb(66, 21, 98);
+}

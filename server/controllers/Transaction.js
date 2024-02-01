@@ -19,7 +19,6 @@ export const transactionCard = async (req, res) => {
 
             const mainCard = await Card.findOne({ number: sender });
 
-            // console.log(recipientCard._id)
             const newTransaction = new Transaction({
                 sender,
                 recipient,
@@ -78,4 +77,24 @@ export const transactionCard = async (req, res) => {
     }
 
 
+}
+
+export const getUser = async (req, res) => {
+    try {
+        const { cardId } = req.body
+
+        const card = await Card.findById(cardId)
+        const user = await User.findById(card.user)
+
+        res.json({
+            card : card.number,
+            user: {
+                _id: user._id,
+                username: user.username,
+                img: user.img,
+            },
+        })
+    } catch (error) {
+        return { message: error };
+    }
 }
