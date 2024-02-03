@@ -111,7 +111,6 @@ export const getMe = async (req, res) => {
         for (let i = 0; i < transactionHistory.length; i++) {
             const trans = await Transaction.findById(transactionHistory[i].transaction);
             transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction });
-
         }
 
 

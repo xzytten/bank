@@ -28,7 +28,7 @@ const Login = () => {
     }, [isAuth, status, navigate])
 
     return (
-        <div>
+        <div className='conntainer-login'>
             <div className='form_container-login'>
                 <h2 className='title_login'>Sign in</h2>
                 <form action="" className='form_login' onSubmit={(e) => e.preventDefault()}>

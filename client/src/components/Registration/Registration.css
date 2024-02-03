@@ -1,3 +1,10 @@
+.container-reg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .form_container-reg {
     background-color: rgba(0, 0, 0, 0.148);
     width: 640px;
@@ -24,7 +31,7 @@
     height: 130px;
     width: 130px;
     overflow: hidden;
-    border-radius: 50%; 
+    border-radius: 50%;
     background-color: white;
     position: relative;
 }
@@ -50,7 +57,7 @@
     background-color: rgba(53, 53, 53, 0.7);
 }
 
-.label-input_img:hover{
+.label-input_img:hover {
     cursor: pointer
 }
 
@@ -60,10 +67,11 @@
 
 /* --- user info  containter --- */
 
-.inputs-reg-container{
+.inputs-reg-container {
     display: flex;
     flex-direction: column;
 }
+
 .input-reg {
     margin: 0 auto;
     margin-bottom: 20px;
@@ -94,9 +102,9 @@
 }
 
 .form_registr {
-    text-decoration: none;    
+    text-decoration: none;
     margin-left: 80%;
-    margin-top:100px ;
+    margin-top: 100px;
     /* margin-left: 400px;
     margin-top: 30px; */
 }

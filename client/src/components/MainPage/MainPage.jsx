@@ -13,10 +13,10 @@ import './MainPage.css';
 
 const MainPage = () => {
     const [pageStatus, setPageStatus] = useState('pending');
+
     const dispatch = useDispatch();
     const isAuth = useSelector(checkIsAuth);
     const status = useSelector(state => state.auth.status);
-
     useEffect(() => {
         if (!isAuth) {
             if (!status) {

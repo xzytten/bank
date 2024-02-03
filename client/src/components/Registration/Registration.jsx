@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import './Registration.css'
-import madara from '../../img/svg/madara.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect} from 'react';
 import { registerUser, checkIsAuth } from '../../redux/authSlice';
+
+import './Registration.css'
 
 const Registration = () => {
     const [username, setUsername] = useState('');
@@ -30,7 +30,7 @@ const Registration = () => {
     }, [isAuth, status, navigate])
 
     return (
-        <div>
+        <div className='container-reg'>
             <div className='form_container-reg'>
                 <h2 className='title_reg'>Register</h2>
                 <form action="" className='form_reg' onSubmit={e => e.preventDefault()}>

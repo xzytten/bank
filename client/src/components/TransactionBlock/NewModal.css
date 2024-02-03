@@ -1,0 +1,37 @@
+.new_modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 450px;
+    width: 600px;
+    border-radius: 18px;
+    position: absolute;
+    position: fixed;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(14, 14, 14);
+    border: 30px;
+    z-index: 101;
+}
+
+.profile_user {
+    display: flex;
+    margin-top:50px ;
+    flex-direction: column;
+    align-items: center;
+}
+
+.new_user_name{
+    font-size: 20px;
+}
+
+.new_user_card{
+    font-size: 16px;
+    margin-top: 30px;
+}
+.new_sum{
+    margin-top: 35px;
+    font-size: 30px;
+}

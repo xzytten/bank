@@ -1,14 +1,14 @@
 import { checkIsAuth, logout, selectUser } from '../../redux/authSlice';
-import { Link, useNavigate } from 'react-router-dom';
-import './Header.css'
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+
+import './Header.css';
 
 const Header = () => {
 
     const dispatch = useDispatch();
     const isAuth = useSelector(checkIsAuth)
-    // const navigate = useNavigate();
     const navigate = useNavigate();
 
     const user = useSelector(selectUser)
@@ -25,8 +25,7 @@ const Header = () => {
     }
 
     useEffect(() => {
-        if (!isAuth && window.location.pathname !== '/register') {
-            // Якщо користувач не аутентифікований і не вже на сторінці реєстрації, перенаправте його на сторінку реєстрації
+        if (!isAuth && window.location.pathname !== '/login' && window.location.pathname !== '/register') {
             navigate('/login', { replace: true });
         }
     }, [isAuth, navigate]);
@@ -41,15 +40,14 @@ const Header = () => {
                 {isAuth
                     ?
                     <div className='you-profile'>
-
                         <img className='you-profile-photo' src={`http://localhost:3003/${user.img}`} alt=''></img>
                         <span className='you-profile-name'> {user.username}</span>
                         <Link className='you-pofile-exit' to={"/login"} onClick={handleLogout}></Link>
                     </div>
                     :
                     <div className='no-logged'>
-                        <Link className='no-logged-login' to={"/login"}>Login</Link>
-                        <Link className='no-logged-register' to={"register"}>Register</Link>
+                        <NavLink className={`no-logged-register ${window.location.pathname === '/login' ? 'activeItem' : ''}`} to={"/login"}>Login</NavLink>
+                        <NavLink className={`no-logged-register ${window.location.pathname === '/register' ? 'activeItem' : ''}`} to={"register"}>Register</NavLink>
                     </div>
                 }
             </header>

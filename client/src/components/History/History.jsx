@@ -27,7 +27,7 @@ const History = () => {
         const groupedByDate = groupTransactionsByDate(sortedTransactions);
         setGroupedTransactions(groupedByDate);
         setDisplayedDates([]); // Скидаємо вже виведені дати при кожному оновленні
-
+        console.log(transactions)
     }, [transactions, newTransaction]);
 
     const compareDates = (a, b) => {
@@ -71,21 +71,21 @@ const History = () => {
                             {
                                 index === 0 ? (
                                     transaction.typeTransaction === 'send' ?
-                                        <Spent date={formatDate(transaction.trans.date)} sum={transaction.trans.sum} />
+                                        <Spent card={transaction.trans.recipient} sum={transaction.trans.sum} />
                                         :
-                                        <Arrived date={formatDate(transaction.trans.date)} sum={transaction.trans.sum} />
+                                        <Arrived card={transaction.trans.sender} sum={transaction.trans.sum} />
                                 ) : (
                                     transaction.typeTransaction === 'send' ?
-                                        <Spent date={formatDate(transaction.trans.date)} sum={transaction.trans.sum} />
+                                        <Spent card={transaction.trans.recipient} sum={transaction.trans.sum} />
                                         :
-                                        <Arrived date={formatDate(transaction.trans.date)} sum={transaction.trans.sum} />
+                                        <Arrived card={transaction.trans.sender} sum={transaction.trans.sum} />
                                 )
                             }
                         </div>
                     ))}
                 </div>
             ))}
-            {transactionModal && <Modal transaction={dataTransaction} setTransactionModal={setTransactionModal}/>}
+            {transactionModal && <Modal transaction={dataTransaction} setTransactionModal={setTransactionModal} />}
         </div>
     );
 }
