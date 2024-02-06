@@ -9,21 +9,20 @@ import { useState } from 'react';
 const ServicePanel = () => {
 
     let [showModal, setShowModal] = useState(false);
-    let [transactionModal, setTransactionModal] = useState(false);
-
+    const [modalCard, setModalCard] = useState(false);
     const toggleModal = () => {
         setShowModal(showModal = !showModal)
     }
 
     const openModalTransaction = () => {
-        setTransactionModal(transactionModal = !transactionModal)
+        setModalCard(!modalCard)
     }
 
     return (
         <div>
             <div className="service-panel">
-                <span className="transfer-card transfer">
-                    <span onClick={openModalTransaction} className="transfer-card-icon">
+                <span className="transfer-card transfer"  onClick={openModalTransaction}>
+                    <span className="transfer-card-icon">
                     </span>
                 </span>
                 <span className="transfer-phone transfer">
@@ -35,7 +34,7 @@ const ServicePanel = () => {
                     </span>
                 </span>
             </div>
-            {transactionModal ? <ModalTransaction setTransactionModal={setTransactionModal} /> : null}
+            {modalCard ? <ModalTransaction setModalCard={setModalCard} /> : null}
             {/* {communalModal ? <ModalCommunal setCommunalModal={setCommunalModal} /> : null} */}
             {showModal ? <Modal setShowModal = {setShowModal}/> : null}
         </div>

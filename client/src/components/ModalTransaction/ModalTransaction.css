@@ -1,4 +1,14 @@
-
+.modal_container {
+    position: absolute;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(2, 2, 2, 0.599);
+    backdrop-filter: blur(2px);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
 
 .modal_transaction-window {
     position: absolute;
@@ -19,9 +29,15 @@
     top: 20px;
     text-align: center;
     font-size: 23px;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
+    background: url('../../img/svg/close.png') no-repeat;
+    background-size: 25px 25px;
     border-radius: 100%;
+}
+
+.modal_transaction-close:hover {
+    transform: scale(1.1);
 }
 
 .modal_input-container {
@@ -41,12 +57,10 @@
     font-size: 20px;
 }
 
-
-
 .modal_input {
     width: 380px;
     height: 48px;
-    background-color: rgba(130, 130, 130, 0.047);
+    background-color: rgba(128, 128, 128, 0.047);
     border: none;
     border-radius: 8px;
     text-align: center;
@@ -74,7 +88,7 @@
     margin-top: 20px;
     border: none;
     background-color: rgba(29, 133, 84, 0.044);
-    box-shadow: 0px 0px 15px rgba(7, 95, 35, 0.575);
+    box-shadow: 0px 0px 15px rgba(67, 67, 67, 0.203);
     border-radius: 10px;
     font-size: 16px;
     width: 100px;
@@ -83,10 +97,10 @@
 
 .modal_transaction-submit:hover {
     transform: scale(1.05);
+    box-shadow: 0px 0px 15px rgba(154, 154, 154, 0.203);
 }
 
-
 .modal_input:focus {
-    box-shadow: 0px 0px 15px rgba(94, 53, 164, 0.203);
+    box-shadow: 0px 0px 15px rgba(154, 154, 154, 0.203);
     outline: none;
 }

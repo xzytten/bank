@@ -1,13 +1,19 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-
-import './Modal.css'
-import './NewModal.css'
-
 import { getUser } from '../../redux/transactionSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import ModalTransaction from '../ModalTransaction/ModalTransaction';
+
+import './Modal.css'
 
 const Modal = ({ transaction, setTransactionModal }) => {
+    const [modalStatus, setModalStatus] = useState('pending');
+
+    const [modalRepeat, setModalRepeat] = useState(false);
+
+    const { card, user, status } = useSelector(state => state.transaction);
+    const { username, img } = useSelector(state => state.auth.user);
+    const mainCard = useSelector(state => state.auth.card.number);
     const dispatch = useDispatch();
 
     const formatDate = (inputDate) => {
@@ -17,6 +23,10 @@ const Modal = ({ transaction, setTransactionModal }) => {
         return formattedDateTime;
     };
 
+    const repeatTransaction = () => {
+        setModalRepeat(true)
+        modalRepeat && setTransactionModal(false);
+    }
 
     useEffect(() => {
         if (transaction.typeTransaction === 'recipient') {
@@ -26,10 +36,9 @@ const Modal = ({ transaction, setTransactionModal }) => {
         }
     }, [transaction]);
 
-    const { card, user } = useSelector(state => state.transaction);
-    const { username, img } = useSelector(state => state.auth.user);
-
-    const mainCard = useSelector(state => state.auth.card.number);
+    useEffect(() => {
+        setModalStatus(status)
+    }, [status])
 
     const formatCreditCardNumber = (creditCardNumber) => {
         const creditCardString = creditCardNumber.toString();
@@ -44,68 +53,56 @@ const Modal = ({ transaction, setTransactionModal }) => {
         return parts.join(' ');
     };
 
+
     return (
         <div className='modal_container'>
-            <div className='modal'>
-                <div className='modal-element'>
-                    <div className='close_modal' onClick={() => setTransactionModal(false)}>x</div>
-                    <div className='user_profile profile_info'>
-                        <img className={`profile_img user_img ${transaction.typeTransaction === 'recipient' ? 'sender' : "recipient"}`} src={`http://localhost:3003/${img}`} alt="" />
-                        <figcaption className='profile_name'>{username}</figcaption>
-                        <span className='user_card'>{formatCreditCardNumber(mainCard)}</span>
-                    </div>
-                    <div className='container_info'>
-                        {transaction.typeTransaction === 'recipient'
-                            ?
-                            <div className='sum-info recipient-sum'>+  {transaction.trans.sum}</div>
-                            :
-                            <div className='sum-info sender-sum'>-  {transaction.trans.sum}</div>}
-
-                    </div>
-                    <div className='guest_profile profile_info'>
-                        {user && (
-                            <>
-                                <img className={`profile_img guest_img ${transaction.typeTransaction === 'recipient' ? 'recipient' : "sender"}`} src={`http://localhost:3003/${user.img || ''}`} alt="" />
-                                <figcaption className='profile_name'>{user.username}</figcaption>
-                                <span className='user_card'>{formatCreditCardNumber(card)}</span>
-                            </>
-                        )}
-                    </div>
-                </div>
-                <div className='modal_info'>
-                    <p className='date'>{formatDate(transaction.trans.date)}</p>
-                    <div className='button_info'>
-                        <button className='button'></button>
-                        <p>Repeat</p>
-                    </div>
-
-
-                </div>
-
-            </div>
+            {
+                modalRepeat
+                    ?
+                    <ModalTransaction sumRepeat={transaction.trans.sum} cardRepeat={card} setModalCard={setModalRepeat} />
+                    :
+                    modalStatus === 'pending'
+                        ?
+                        <div className='pending-modal-container'></div>
+                        :
+                        <div className='modal'>
+                            <div className='modal-element'>
+                                <span className='close_modal' onClick={() => setTransactionModal(false)}></span>
+                                <div className='user_profile profile_info'>
+                                    <img className={`profile_img user_img ${transaction.typeTransaction === 'recipient' ? 'sender' : "recipient"}`} src={`http://localhost:3003/${img}`} alt="" />
+                                    <figcaption className='profile_name'>{username}</figcaption>
+                                    <span className='user_card'>{formatCreditCardNumber(mainCard)}</span>
+                                </div>
+                                <div className='container_info'>
+                                    {transaction.typeTransaction === 'recipient'
+                                        ?
+                                        <div className='sum-info recipient-sum'>+  {transaction.trans.sum}</div>
+                                        :
+                                        <div className='sum-info sender-sum'>-  {transaction.trans.sum}</div>}
+                                </div>
+                                <div className='guest_profile profile_info'>
+                                    {user && (
+                                        <>
+                                            <img className={`profile_img guest_img ${transaction.typeTransaction === 'recipient' ? 'recipient' : "sender"}`} src={`http://localhost:3003/${user.img || ''}`} alt="" />
+                                            <figcaption className='profile_name'>{user.username}</figcaption>
+                                            <span className='user_card'>{formatCreditCardNumber(card)}</span>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                            <div className='modal_info'>
+                                <p className='date'>{formatDate(transaction.trans.date)}</p>
+                                {
+                                    transaction.typeTransaction !== 'recipient' &&
+                                    <div className='button_info' onClick={repeatTransaction}>
+                                        <button className='button'></button>
+                                        <p>Repeat</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+            }
         </div>
-
-
-
-
-
-        // <div className='modal_container'>
-        //     <div className='new_modal'>
-        //         <div className='close_modal' onClick={() => setTransactionModal(false)}>x</div>
-        //         {user && (
-        //             <div div className='profile_user'>
-        //                 <img className={`profile_img guest_img ${transaction.typeTransaction === 'recipient' ? 'recipient' : "sender"}`} src={`http://localhost:3003/${user.img || ''}`} alt="" />
-        //                 <figcaption className='new_user_name'>{user.username}</figcaption>
-        //                 <p className='new_user_card'>{card}</p>
-        //             </div>
-        //         )}
-        //         <div className='new_sum'>- {transaction.trans.sum}</div>
-        //         <div>
-        //             <p className='date'>{formatDate(transaction.trans.date)}</p>
-        //             <button className='button'></button>
-        //         </div>
-        //     </div>
-        // </div >
     );
 };
 

@@ -12,14 +12,12 @@ import './Profile.css';
 const socket = io('http://localhost:3003');
 
 const Profile = () => {
+
     const dispatch = useDispatch();
     const [profileStatus, setProfileStatus] = useState('pending')
 
-    // const user = useSelector(state => state.auth.user._id)
     const status = useSelector(state => state.auth.status)
     socket.on('message', (data) => {
-        // console.log('Получено повідомлення від сервера:', data);
-        // Тут ви можете обробити дані, які ви відправляєте з сервера до клієнта
     });
 
     useEffect(() => {
@@ -27,26 +25,8 @@ const Profile = () => {
         console.log('profile')
     }, [status])
 
-    // useEffect(() => {
-    //     console.log(1);
-    //     // socket.emit('getTransactions', '65b1436dcb934637a8b5e037'); // userId - ідентифікатор поточного користувача
-    //     // Ви використовуєте один useEffect для обох операцій
-    //     socket.emit('join', { name: 'Maks' });
-
-    //     const messageHandler = (data) => {
-    //         console.log(data.message); // Очікується 'hello Maks'
-    //     };
-
-    //     socket.on('message', messageHandler);
-
-    //     // Cleanup-функція для відключення подій при виході компонента
-    //     return () => {
-    //         socket.off('message', messageHandler);
-    //     };
-    // }, [dispatch]); // Додайте dispatch до залежностей
-
     useEffect(() => {
-        dispatch(getMe());
+        dispatch(getMe());      
     }, [dispatch]);
 
     return (

@@ -1,5 +1,4 @@
 import Card from "../models/Card.js";
-import mongoose from "mongoose";
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
 import { io } from "../index.js";
@@ -10,7 +9,7 @@ export const transactionCard = async (req, res) => {
 
         const senderCard = await Card.findOne({ number: sender })
         const recipientCard = await Card.findOne({ number: recipient })
-
+        
         if (senderCard && recipientCard && sender !== recipient && senderCard.cash >= sum) {
 
             await Card.updateOne({ number: recipient }, { $inc: { cash: sum } });
@@ -30,7 +29,6 @@ export const transactionCard = async (req, res) => {
 
             await newTransaction.save();
 
-            // console.log(newTransaction._id)
             await User.findByIdAndUpdate(senderCard.user, {
                 $push: {
                     'transactionHistory': {
@@ -61,15 +59,25 @@ export const transactionCard = async (req, res) => {
                     trans: newTransaction,
                     typeTransaction: 'send'
                 },
-                message: 'Transaction was seccessful',
+                transactionStatus: 'seccessful',
             })
-            // next()
+
+        } else if (senderCard.cash <= sum) {
+            res.json({
+                transactionStatus: 'error',
+                message: "You don't have enough money"
+            })
+        } else if (sender !== recipient) {
+            res.json({
+                transactionStatus: 'error',
+                message: "Card not found"
+            })
         } else {
             res.json({
-                message: 'Transaction error',
+                transactionStatus: 'error',
+                message: "Transaction error"
             })
         }
-
     } catch (error) {
         res.json({
             message: 'Transaction error',
@@ -87,7 +95,7 @@ export const getUser = async (req, res) => {
         const user = await User.findById(card.user)
 
         res.json({
-            card : card.number,
+            card: card.number,
             user: {
                 _id: user._id,
                 username: user.username,

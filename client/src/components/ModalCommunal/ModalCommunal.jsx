@@ -1,4 +1,4 @@
-import './ModalCommunal.css'
+// import './ModalCommunal.css'
 
 const ModalCommunal = ({setCommunalModal}) => {
     return (

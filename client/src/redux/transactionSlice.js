@@ -4,6 +4,8 @@ import axios from '../utils/axios';
 const initialState = {
 
     cash: null,
+    message: null,
+    transactionStatus: null,
     card: null,
     user: null,
     status: null,
@@ -42,6 +44,8 @@ export const transactionSlice = createSlice({
                 state.status = 'fulfilled';
                 state.cash = action.payload?.cash;
                 state.newTransaction = action.payload?.newTransaction
+                state.message = action.payload?.message;
+                state.transactionStatus = action.payload?.transactionStatus
             })
             .addCase(cardTransaction.rejected, (state) => {
                 state.status = 'rejected';
@@ -54,7 +58,7 @@ export const transactionSlice = createSlice({
             .addCase(getUser.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
                 state.card = action.payload?.card;
-                state.user = action.payload?.user
+                state.user = action.payload?.user;
             })
             .addCase(getUser.rejected, (state) => {
                 state.status = 'rejected';

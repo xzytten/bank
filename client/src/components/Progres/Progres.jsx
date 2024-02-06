@@ -5,12 +5,12 @@ import ServicePanel from '../ServicePanel/ServicePanel';
 import './Progres.css'
 
 import { useState } from 'react';
-const Progres = () => {
+const Progres = ( ) => {
 
     return (
         <div>
             <Diagram/>
-            <ServicePanel/>
+            <ServicePanel />
         </div>
     )
 }

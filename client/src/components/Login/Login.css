@@ -48,7 +48,7 @@
 
 .form_btn {
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 30px;
     outline: none;
     background-color: #131313;
     color: white;
@@ -80,11 +80,11 @@
 
 .input:focus {
     outline: none;
-    box-shadow: 0px 0px 10px rgba(94, 53, 164, 0.211);
+    box-shadow: 0px 0px 15px rgba(154, 154, 154, 0.203);
 }
 
 .form_btn:hover {
-    box-shadow: 0px 0px 10px rgba(94, 53, 164, 0.211);
+    box-shadow: 0px 0px 15px rgba(154, 154, 154, 0.203);
     opacity: .9;
     cursor: pointer;
 }
