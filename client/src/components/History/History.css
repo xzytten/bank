@@ -3,19 +3,20 @@
     background-color: rgba(0, 0, 0, 0.148);
     height: 500px;
     width: 685px;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; */
 }
 
 .cards-history-container {
-    margin-top: 40px;
-    max-height: 400px;
+    /* margin-top: 20px; */
+    max-height: 500px;
     overflow-y: auto;
 
-    /* Повне видалення полоси прокрутки для WebKit-браузерів (Chrome, Safari) */
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
-    /* transparent color for thumb and track */
 
-    /* Видалення стандартного елемента прокрутки у WebKit-браузерах */
     &::-webkit-scrollbar {
         display: none;
     }
@@ -96,19 +97,20 @@
 .arived__amount {
     color: rgba(2, 114, 2, 0.643);
 }
-.group_container{
+
+.group_container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.group_date{
+.group_date {
     display: inline-block;
     font-size: 19px;
     min-width: 100px;
     max-width: 150px;
     margin: 0 auto;
-    color:rgba(139, 139, 139, 0.685);
+    color: rgba(139, 139, 139, 0.685);
     text-align: center;
     margin-bottom: 40px;
     margin-top: 30px;
@@ -125,4 +127,39 @@
 .arrived_money:hover {
     transform: scale(1.025);
     cursor: pointer;
+}
+
+
+.load_more {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.148);
+    border: none;
+    width: 100px;
+    border-radius: 10px;
+    height: 40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.load_more:hover {
+    transform: scale(1.08);
+    box-shadow: 0px 0px 12px rgba(135, 135, 135, 0.203);
+    cursor: pointer;
+}
+
+.spinner_more {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.148);
+    border: none;
+    width: 100px;
+    border-radius: 10px;
+    height: 40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.spinner_more:hover {
+
+    pointer-events: none;
+    cursor: not-allowed;
 }

@@ -5,6 +5,8 @@ const initialState = {
     user: null,
     card: null,
     transactionHistory: null,
+    totalCountTransaction: null,
+    statusHistory: null,
     token: null,
     isLoading: null,
     status: null,
@@ -35,9 +37,6 @@ export const registerUser = createAsyncThunk(
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(data)
-            console.log(data.img)
-
             if (data.token) {
                 window.localStorage.setItem('token', data.token);
             }
@@ -61,6 +60,19 @@ export const getMe = createAsyncThunk(
         }
     }
 )
+
+export const getMoreTransaction = createAsyncThunk(
+    'auth/getmore',
+    async ({ userId, totalCount }) => {
+        try {
+            const { data } = await axios.post('auth/getmore', { userId, totalCount });
+            return data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+);
 
 const authSlice = createSlice({
     name: 'auth',
@@ -119,11 +131,26 @@ const authSlice = createSlice({
                 state.card = action.payload?.card;
                 state.transactionHistory = action.payload?.transactions;
                 state.token = action.payload?.token;
+                state.totalCountTransaction = action.payload?.totalCountTransaction
                 state.status = 'fulfilled';
             })
             .addCase(getMe.rejected, (state, action) => {
                 state.isLoading = false;
                 state.status = 'rejected';
+            })
+
+            // get more
+            .addCase(getMoreTransaction.pending, (state) => {
+                state.isLoading = false;
+                state.statusHistory = 'pending';
+            })
+            .addCase(getMoreTransaction.fulfilled, (state, action) => {
+                state.transactionHistory = (state.transactionHistory || []).concat(action.payload?.transactions || []);
+                state.statusHistory = 'fulfilled';
+            })
+            .addCase(getMoreTransaction.rejected, (state, action) => {
+                state.isLoading = false;
+                state.statusHistory = 'rejected';
             })
     }
 })

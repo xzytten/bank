@@ -9,7 +9,7 @@ export const transactionCard = async (req, res) => {
 
         const senderCard = await Card.findOne({ number: sender })
         const recipientCard = await Card.findOne({ number: recipient })
-        
+
         if (senderCard && recipientCard && sender !== recipient && senderCard.cash >= sum) {
 
             await Card.updateOne({ number: recipient }, { $inc: { cash: sum } });
@@ -106,3 +106,4 @@ export const getUser = async (req, res) => {
         return { message: error };
     }
 }
+

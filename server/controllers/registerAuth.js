@@ -74,7 +74,7 @@ export const login = async (req, res) => {
                 return res.json('Error, user is not declared.')
             }
 
-            const isPasswordCorrect = await bcrypt.compare(password, user.password) 
+            const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
             if (!isPasswordCorrect) {
                 return res.json('Password is uncorect')
@@ -104,18 +104,26 @@ export const getMe = async (req, res) => {
     try {
         const user = await User.findById(req.userId)
         const card = await Card.findById(user.creditCard)
-        // console.log(user.transactionHistory)
+
         const transactions = [];
-        const transactionHistory = user.transactionHistory
+        const transactionHistory = user.transactionHistory;
+        const totalSum = {
+            income: 0,
+            extence: 0,
+        }
+        const totalCountTransaction = user.transactionHistory.length;
+
+        for (let i = (transactionHistory.length - 1); i >= 0; i--) {
+            if (i > transactionHistory.length - 12 && i !== -1) {
+                const trans = await Transaction.findById(transactionHistory[i].transaction);
+                transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction });
+            }
+        }
 
         for (let i = 0; i < transactionHistory.length; i++) {
             const trans = await Transaction.findById(transactionHistory[i].transaction);
-        
-            transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction });
+            console.log(trans)
         }
-
-
-        // console.log(extence)
 
         if (!user) {
             return res.json('Error, user is not declared.')
@@ -128,18 +136,40 @@ export const getMe = async (req, res) => {
             { expiresIn: '30d' }
         );
 
-        // const transaction = user.transactionHistory;
-        // console.log(user)
-        // console.log(transaction)
-
         res.json({
             user,
             card,
+            totalCountTransaction,
             transactions,
             token,
             message: 'You dont have access',
         })
     } catch (e) {
 
+    }
+}
+
+
+export const getMoreTransaction = async (req, res) => {
+    try {
+        let { totalCount } = req.body;
+        const user = await User.findById(req.body.userId)
+
+        const transactions = [];
+        const transactionHistory = user.transactionHistory;
+        const lengthTransaction = user.transactionHistory.length;
+        const trans = lengthTransaction - totalCount;
+
+        for (let i = (trans - 1); i >= 0; i--) {
+            if (i > (trans - 12) && i !== -1) {
+                const trans = await Transaction.findById(transactionHistory[i].transaction);
+                transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction });
+            }
+        }
+        res.json({
+            transactions,
+        })
+    } catch (error) {
+        return { message: error };
     }
 }
