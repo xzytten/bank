@@ -24,7 +24,6 @@ export const getUser = createAsyncThunk(
     'transaction/user',
     async (params) => {
         const { data } = await axios.post('transaction/user', params);
-        console.log(data)
         return data
     }
 )

@@ -1,8 +1,8 @@
 import React from 'react';
 
 
-const Arrived = ({ card, sum }) => {
-
+const Arrived = ({ card, sum, user}) => {
+    console.log(user)
     const formatCreditCardNumber = (creditCardNumber) => {
         const creditCardString = creditCardNumber.toString();
 
@@ -25,7 +25,8 @@ const Arrived = ({ card, sum }) => {
                 <span className='arived-logo-ico transfer-history-ico'></span>
             </p>
             <div className='data__transaction'>
-                <span className='data'>{formatCreditCardNumber(card)}</span>
+                <img className="trnsaction_user_img" src={`http://localhost:3003/${user.img}`} alt=""/>
+                <span className='trnsaction_user_name'>{user.username}</span>
             </div>
             <div className='arived__amount'>
                 <span className='spent__amount-sum'> {sum}$</span>

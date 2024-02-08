@@ -131,8 +131,9 @@ const authSlice = createSlice({
                 state.card = action.payload?.card;
                 state.transactionHistory = action.payload?.transactions;
                 state.token = action.payload?.token;
-                state.totalCountTransaction = action.payload?.totalCountTransaction
+                state.totalCountTransaction = action.payload?.totalCountTransaction;
                 state.status = 'fulfilled';
+
             })
             .addCase(getMe.rejected, (state, action) => {
                 state.isLoading = false;

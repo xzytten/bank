@@ -48,7 +48,7 @@
     background-size: 25px 25px;
 }
 
-.close_modal:hover{
+.close_modal:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -88,7 +88,7 @@
     /* color: rgb(66, 21, 98); */
 }
 
-.modal_info{
+.modal_info {
     display: flex;
     align-items: center;
     position: absolute;
@@ -96,6 +96,7 @@
     bottom: 20px;
     width: 85%;
 }
+
 .date {
     color: rgba(200, 200, 200, 0.823);
     bottom: 10px;
@@ -109,7 +110,7 @@
     color: rgb(67, 19, 100);
 }
 
-.button_info{ 
+.button_info {
     width: 80px;
     align-items: center;
     font-size: 14px;
@@ -175,7 +176,7 @@
     transform: translate(-50%, -50%);
     height: 440px;
     width: 660px;
-    z-index: 3; 
+    z-index: 3;
     border-radius: 20px;
     background: linear-gradient(45deg, #0f0f0f, rgb(23, 23, 23));
     background-size: 300% 300%;
@@ -196,4 +197,12 @@
         background-position: 0 50%;
     }
 
+}
+
+.trnsaction_user_img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
 }

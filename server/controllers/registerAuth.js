@@ -104,25 +104,25 @@ export const getMe = async (req, res) => {
     try {
         const user = await User.findById(req.userId)
         const card = await Card.findById(user.creditCard)
-
         const transactions = [];
         const transactionHistory = user.transactionHistory;
-        const totalSum = {
-            income: 0,
-            extence: 0,
-        }
         const totalCountTransaction = user.transactionHistory.length;
-
         for (let i = (transactionHistory.length - 1); i >= 0; i--) {
             if (i > transactionHistory.length - 12 && i !== -1) {
-                const trans = await Transaction.findById(transactionHistory[i].transaction);
-                transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction });
-            }
-        }
 
-        for (let i = 0; i < transactionHistory.length; i++) {
-            const trans = await Transaction.findById(transactionHistory[i].transaction);
-            console.log(trans)
+                const trans = await Transaction.findById(transactionHistory[i].transaction);
+
+                if (transactionHistory[i].typeTransaction === 'recipient') {
+                    const secondCard = await Card.findById(trans.idSender).select('user')
+                    const secondUser = await User.findById(secondCard.user).select('username img');
+                    transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction, users: { username: secondUser.username, img: secondUser.img } });
+                } else {
+                    const secondCard = await Card.findById(trans.idRecipient).select('user')
+                    const secondUser = await User.findById(secondCard.user).select('username img');
+                    transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction, users: { username: secondUser.username, img: secondUser.img } });
+                }
+
+            }
         }
 
         if (!user) {
@@ -162,8 +162,18 @@ export const getMoreTransaction = async (req, res) => {
 
         for (let i = (trans - 1); i >= 0; i--) {
             if (i > (trans - 12) && i !== -1) {
+
                 const trans = await Transaction.findById(transactionHistory[i].transaction);
-                transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction });
+
+                if (transactionHistory[i].typeTransaction === 'recipient') {
+                    const secondCard = await Card.findById(trans.idSender).select('user')
+                    const secondUser = await User.findById(secondCard.user).select('username img');
+                    transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction, users: { username: secondUser.username, img: secondUser.img } });
+                } else {
+                    const secondCard = await Card.findById(trans.idRecipient).select('user')
+                    const secondUser = await User.findById(secondCard.user).select('username img');
+                    transactions.push({ trans, typeTransaction: transactionHistory[i].typeTransaction, users: { username: secondUser.username, img: secondUser.img } });
+                }
             }
         }
         res.json({

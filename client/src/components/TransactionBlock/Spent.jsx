@@ -1,23 +1,7 @@
 import React from 'react';
 
-const Spent = ({ sum, card }) => {
+const Spent = ({ sum, newUser, user }) => {
 
-    const formatCreditCardNumber = (creditCardNumber) => {
-        const creditCardString = creditCardNumber.toString();
-
-        const cleanedNumber = creditCardString.replace(/\D/g, '');
-
-        const parts = [];
-        for (let i = 0; i < cleanedNumber.length; i += 4) {
-            parts.push(cleanedNumber.slice(i, i + 4));
-        }
-
-        for (let i = 1; i < parts.length - 1; i++) {
-            parts[i] = '*'.repeat(parts[i].length);
-        }
-
-        return parts.join(' ');
-    };
 
     return (
         <div className='spent_money' >
@@ -25,7 +9,8 @@ const Spent = ({ sum, card }) => {
                 <span className='spent-logo-ico transfer-history-ico'></span>
             </p>
             <div className='data__transaction'>
-                <span className='data'>{formatCreditCardNumber(card)}</span>
+                <img className="trnsaction_user_img" src={`http://localhost:3003/${user?.img || newUser?.img}`} alt="" />
+                <span className='trnsaction_user_name'>{user?.username || newUser?.username}</span>
             </div>
             <div className='spent__amount'>
                 <span className='spent__amount-sum'>-{sum} $</span>

@@ -9,7 +9,7 @@ export const transactionCard = async (req, res) => {
 
         const senderCard = await Card.findOne({ number: sender })
         const recipientCard = await Card.findOne({ number: recipient })
-
+        const recipientUser = await User.findById(recipientCard.user).select("username img")
         if (senderCard && recipientCard && sender !== recipient && senderCard.cash >= sum) {
 
             await Card.updateOne({ number: recipient }, { $inc: { cash: sum } });
@@ -57,7 +57,11 @@ export const transactionCard = async (req, res) => {
                 cash: mainCard.cash,
                 newTransaction: {
                     trans: newTransaction,
-                    typeTransaction: 'send'
+                    typeTransaction: 'send',
+                    recipientUser: {
+                        username: recipientUser.username,
+                        img: recipientUser.img
+                    }
                 },
                 transactionStatus: 'seccessful',
             })
