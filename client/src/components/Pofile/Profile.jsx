@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getMe } from '../../redux/authSlice';
-import io from 'socket.io-client';
 
 import Card from '../Card/Card';
 import History from '../History/History';
@@ -9,16 +8,12 @@ import Progres from '../Progres/Progres';
 
 import './Profile.css';
 
-const socket = io('http://localhost:3003');
-
 const Profile = () => {
 
     const dispatch = useDispatch();
     const [profileStatus, setProfileStatus] = useState('pending')
 
     const status = useSelector(state => state.auth.status)
-    socket.on('message', (data) => {
-    });
 
     useEffect(() => {
         setProfileStatus(status)
@@ -32,7 +27,7 @@ const Profile = () => {
     return (
         <div>
             {
-                status === 'pending' ?
+                profileStatus === 'pending' ?
                     <div className='profile__container'>
                         <div className='profile__card-info left-bar '>
                             <div className='wave-container wave'></div>

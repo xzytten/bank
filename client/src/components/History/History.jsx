@@ -118,18 +118,17 @@ const History = () => {
                     <div className='group_date'>{formatDate(dateKey)}</div>
                     {groupedTransactions[dateKey].map((transaction, index) => (
                         <div key={index} onClick={() => someFun(transaction)}>
-                            {console.log(index)}
                             {index === 0 ? (
                                 transaction.typeTransaction === 'send' ? (
-                                    <Spent index={index} newUser={transaction.recipientUser} user={transaction.users} card={transaction.trans.recipient} sum={transaction.trans.sum} />
+                                    <Spent index={index} newUser={transaction.recipientUser} user={transaction.users} sum={transaction.trans.sum} />
                                 ) : (
-                                    <Arrived card={transaction.trans.sender} index={index} user={transaction.users} sum={transaction.trans.sum} />
+                                    <Arrived index={index} user={transaction.users} sum={transaction.trans.sum} />
                                 )
                             ) : (
                                 transaction.typeTransaction === 'send' ? (
-                                    <Spent card={transaction.trans.recipient} index={index} user={transaction.users} sum={transaction.trans.sum} />
+                                    <Spent newUser={transaction.recipientUser} index={index} user={transaction.users} sum={transaction.trans.sum} />
                                 ) : (
-                                    <Arrived card={transaction.trans.sender} index={index} user={transaction.users} sum={transaction.trans.sum} />
+                                    <Arrived index={index} user={transaction.users} sum={transaction.trans.sum} />
                                 )
                             )}
                         </div>

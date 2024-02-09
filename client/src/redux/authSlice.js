@@ -10,6 +10,7 @@ const initialState = {
     token: null,
     isLoading: null,
     status: null,
+    cashHistory: null
 };
 
 export const login = createAsyncThunk(
@@ -125,6 +126,7 @@ const authSlice = createSlice({
                 state.isLoading = false;
                 state.status = 'pending';
             })
+
             .addCase(getMe.fulfilled, (state, action) => {
                 state.isLoading = true;
                 state.user = action.payload?.user;
@@ -132,9 +134,11 @@ const authSlice = createSlice({
                 state.transactionHistory = action.payload?.transactions;
                 state.token = action.payload?.token;
                 state.totalCountTransaction = action.payload?.totalCountTransaction;
+                state.cashHistory = action = action.payload?.card?.cashHistory;
                 state.status = 'fulfilled';
 
             })
+
             .addCase(getMe.rejected, (state, action) => {
                 state.isLoading = false;
                 state.status = 'rejected';

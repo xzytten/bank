@@ -10,6 +10,7 @@ const initialState = {
     user: null,
     status: null,
     newTransaction: null,
+    cashHistory: null,
 
 }
 
@@ -20,6 +21,7 @@ export const cardTransaction = createAsyncThunk(
         return data;
     }
 )
+
 export const getUser = createAsyncThunk(
     'transaction/user',
     async (params) => {
@@ -42,9 +44,11 @@ export const transactionSlice = createSlice({
             .addCase(cardTransaction.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
                 state.cash = action.payload?.cash;
-                state.newTransaction = action.payload?.newTransaction
+                state.newTransaction = action.payload?.newTransaction;
                 state.message = action.payload?.message;
-                state.transactionStatus = action.payload?.transactionStatus
+                state.transactionStatus = action.payload?.transactionStatus;
+                state.cashHistory = action.payload?.cashHistory;
+
             })
             .addCase(cardTransaction.rejected, (state) => {
                 state.status = 'rejected';

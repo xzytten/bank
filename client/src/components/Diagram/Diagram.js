@@ -1,39 +1,84 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 
 import './Diagram.css'
 
 const Diagram = (props) => {
+
+    const cardCashHistory = useSelector(state => state.auth.cashHistory);
+    const transCashHistory = useSelector(state => state.transaction.cashHistory);
+
+    ChartJS.register(ArcElement, Tooltip, Legend);
+
     const [income, setIncome] = useState(0);
     const [extence, setExtence] = useState(0);
 
-    const allTransaction = useSelector(state => state.auth.transactionHistory)
-
     useEffect(() => {
-        allTransaction && calcIncome()
-    }, [allTransaction])
+        console.log(transCashHistory)
+        if (transCashHistory) {
+            setIncome(transCashHistory.income);
+            setExtence(transCashHistory.extence);
+        } else {
+            setIncome(cardCashHistory.income);
+            setExtence(cardCashHistory.extence);
+        }
+    }, [cardCashHistory, transCashHistory]);
 
-    const calcIncome = () => {
-        let income = 0;
-        let extence = 0;
 
-        allTransaction.forEach(transaction => {
-            if (transaction.typeTransaction === 'recipient') {
-                income += transaction.trans.sum;
-            } else {
-                extence += transaction.trans.sum;
-            }
-        });
-        setIncome(income)
-        setExtence(extence)
-    }
+    const data = {
+        labels: ['Income', 'Extence'],
+        datasets: [
+            {
+                data: [income, extence],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const options = {
+        plugins: {
+            legend: {
+                display: false, // Відключає відображення легенди (підписів)
+            },
+        },
+    };
+
+    // const allTransaction = useSelector(state => state.auth.transactionHistory)
+
+    // useEffect(() => {
+    //     allTransaction && calcIncome()
+    // }, [allTransaction])
+
+    // const calcIncome = () => {
+    //     let income = 0;
+    //     let extence = 0;
+
+    //     allTransaction.forEach(transaction => {
+    //         if (transaction.typeTransaction === 'recipient') {
+    //             income += transaction.trans.sum;
+    //         } else {
+    //             extence += transaction.trans.sum;
+    //         }
+    //     });
+    //     setIncome(income)
+    //     setExtence(extence)
+    // }
 
     return (
         <div>
             <div className="diagram-container">
-                <div className={`progress_bar ${props.isOver ? 'over_50' : ''}`}>
-                    <span className={`diagram diagram-left ${true ? 'over_50' : ''}`} style={{ transform: `rotate(calc(180deg + ${50}deg * 360 / 100))` }}></span>
-                    <span className={`diagram diagram-right ${false ? 'over_50' : ''}`} style={{ transform: `rotate(calc(180deg + ${50}deg * 360 / 100))` }}></span>
+                <div className='diagram'>
+                    <Doughnut data={data} options={options} />
                 </div>
             </div>
             <div className="progerss-container">

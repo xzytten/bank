@@ -49,7 +49,6 @@ export const registerAuth = async (req, res) => {
 
         const uniqueCard = await createUniqueCard(newUser._id);
 
-        // Додаємо ідентифікатор створеної карти до користувача
         await User.findByIdAndUpdate(newUser._id, { $push: { creditCard: uniqueCard._id } });
 
         res.json({

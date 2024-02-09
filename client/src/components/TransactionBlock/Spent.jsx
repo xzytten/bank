@@ -1,8 +1,6 @@
 import React from 'react';
 
 const Spent = ({ sum, newUser, user }) => {
-
-
     return (
         <div className='spent_money' >
             <p className='spent-logo tranfer-history'>

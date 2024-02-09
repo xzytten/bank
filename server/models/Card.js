@@ -22,7 +22,15 @@ const CardSchema = new Schema({
     cash: {
         type: Number,
         require: true,
-        default: 120
+        default: 200
+    },
+    cashHistory: {
+        income: {
+            type: Number,
+        },
+        extence: {
+            type: Number,
+        }
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

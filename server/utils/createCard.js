@@ -20,6 +20,10 @@ export const createUniqueCard = async (userId) => {
                 creationDate: currentDate,
                 expirationDate: new Date(currentDate.getFullYear() + 4, currentDate.getMonth(), currentDate.getDate()),
                 cash: '120',
+                cashHistory: {
+                    income: 0,
+                    extence: 0,
+                }
             };
 
             const existingCard = await Card.findOne({ cardNumber: cardData.number });
