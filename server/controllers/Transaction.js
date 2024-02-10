@@ -12,13 +12,10 @@ export const transactionCard = async (req, res) => {
         const recipientUser = await User.findById(recipientCard.user).select("username img")
         if (senderCard && recipientCard && sender !== recipient && senderCard.cash >= sum) {
 
-            await Card.updateOne({ number: recipient }, { $inc: { cash: sum }, $inc :{'cashHistory.income': sum}});
+            await Card.updateOne({ number: recipient }, { $inc: { cash: sum }, $inc: { 'cashHistory.income': sum } });
 
-            await Card.updateOne({ number: sender }, { $inc: { cash: -sum }, $inc :{'cashHistory.extence': sum}});
-            
-            // console.log(recipientCard)
-            // console.log(senderCard.cashHistory)
-            
+            await Card.updateOne({ number: sender }, { $inc: { cash: -sum }, $inc: { 'cashHistory.extence': sum } });
+
             const mainCard = await Card.findOne({ number: sender });
 
             const newTransaction = new Transaction({
@@ -58,8 +55,8 @@ export const transactionCard = async (req, res) => {
                         username: recipientUser.username,
                         img: recipientUser.img
                     },
-                    cashHistory: senderCard.cashHistory
                 },
+                cashHistory: mainCard.cashHistory,
                 transactionStatus: 'seccessful',
             })
 

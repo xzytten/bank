@@ -80,11 +80,15 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            state.user = null;
-            state.card = null;
-            state.token = null;
-            state.isLoading = false;
-            state.status = null;
+            state.user = null
+            state.card = null
+            state.transactionHistory = null
+            state.totalCountTransaction = null
+            state.statusHistory = null
+            state.token = null
+            state.isLoading = null
+            state.status = null
+            state.cashHistory = null
         }
     },
     extraReducers: (builder) => {

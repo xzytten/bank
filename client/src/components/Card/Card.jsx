@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectCard } from '../../redux/authSlice';
 import { useEffect, useState } from 'react';
+import { useSpring, animated } from 'react-spring';
 
 import './Card.css';
 
@@ -44,6 +45,8 @@ const Card = () => {
         setIsFlipped(!isFlipped);
     };
 
+    const animatedCash = useSpring({ value: cash });
+
 
     return (
         <div className={`profile__card-info left-bar ${isFlipped ? 'flipped' : ''}`}>
@@ -74,7 +77,8 @@ const Card = () => {
             </div>
             <div className='card__balance'>
                 <p>BALANCE</p>
-                <div className='card__cash'>{cash} $</div>
+                <div className='card__cash'>
+                <animated.span>{animatedCash.value.interpolate((val) => Math.floor(val))}</animated.span> $</div>
             </div>
         </div>
     )

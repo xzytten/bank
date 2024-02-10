@@ -1,44 +1,44 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-
-import './Diagram.css'
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useSpring, animated } from 'react-spring';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+import './Diagram.css';
 
 const Diagram = (props) => {
+    ChartJS.register(ArcElement, Tooltip, Legend);
 
     const cardCashHistory = useSelector(state => state.auth.cashHistory);
     const transCashHistory = useSelector(state => state.transaction.cashHistory);
-
-    ChartJS.register(ArcElement, Tooltip, Legend);
 
     const [income, setIncome] = useState(0);
     const [extence, setExtence] = useState(0);
 
     useEffect(() => {
-        console.log(transCashHistory)
         if (transCashHistory) {
-            setIncome(transCashHistory.income);
-            setExtence(transCashHistory.extence);
+            setIncome(transCashHistory?.income);
+            setExtence(transCashHistory?.extence);
         } else {
-            setIncome(cardCashHistory.income);
-            setExtence(cardCashHistory.extence);
+            setIncome(cardCashHistory?.income);
+            setExtence(cardCashHistory?.extence);
         }
     }, [cardCashHistory, transCashHistory]);
 
-
+    // Анімація для числових значень
+    const animatedIncome = useSpring({ value: income });
+    const animatedExtence = useSpring({ value: extence });
     const data = {
         labels: ['Income', 'Extence'],
         datasets: [
             {
                 data: [income, extence],
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(83, 150, 109, 0.237)',
+                    'rgba(94, 53, 164, 0.237)',
                 ],
                 borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
+                    'rgba(75, 192, 192, 0.3)',
+                    'rgba(153, 102, 255, 0.3)',
                 ],
                 borderWidth: 1,
             },
@@ -46,51 +46,42 @@ const Diagram = (props) => {
     };
 
     const options = {
+        cutout: '60%',
         plugins: {
             legend: {
-                display: false, // Відключає відображення легенди (підписів)
+                display: false,
+            },
+            tooltip: {
+                displayColors: false,
             },
         },
     };
 
-    // const allTransaction = useSelector(state => state.auth.transactionHistory)
-
-    // useEffect(() => {
-    //     allTransaction && calcIncome()
-    // }, [allTransaction])
-
-    // const calcIncome = () => {
-    //     let income = 0;
-    //     let extence = 0;
-
-    //     allTransaction.forEach(transaction => {
-    //         if (transaction.typeTransaction === 'recipient') {
-    //             income += transaction.trans.sum;
-    //         } else {
-    //             extence += transaction.trans.sum;
-    //         }
-    //     });
-    //     setIncome(income)
-    //     setExtence(extence)
-    // }
-
     return (
         <div>
             <div className="diagram-container">
-                <div className='diagram'>
+                <div className='diagram_cont'>
                     <Doughnut data={data} options={options} />
                 </div>
             </div>
             <div className="progerss-container">
                 <div className='income-container'>
-                    <span className="income">Income: <p className="income-cash">{income}</p></span>
+                    <span className="income">
+                        Income:
+                        <p className="income-cash">
+                            <animated.span>{animatedIncome.value.interpolate((val) => Math.floor(val))}</animated.span>
+                        </p>
+                    </span>
                 </div>
                 <div className="extense-container">
-                    <span className="extense">Extence: <p className="extense-cash">{extence}</p></span>
+                    <span className="extense">Extence:
+                        <p className="extense-cash">
+                            <animated.span>{animatedExtence.value.interpolate((val) => Math.floor(val))}</animated.span>
+                        </p></span>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Diagram;

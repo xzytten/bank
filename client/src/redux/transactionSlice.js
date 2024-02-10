@@ -48,7 +48,6 @@ export const transactionSlice = createSlice({
                 state.message = action.payload?.message;
                 state.transactionStatus = action.payload?.transactionStatus;
                 state.cashHistory = action.payload?.cashHistory;
-
             })
             .addCase(cardTransaction.rejected, (state) => {
                 state.status = 'rejected';
