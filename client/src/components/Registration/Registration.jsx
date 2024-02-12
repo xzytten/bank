@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { registerUser, checkIsAuth } from '../../redux/authSlice';
 
 import './Registration.css'
@@ -25,7 +25,6 @@ const Registration = () => {
     }
 
     useEffect(() => {
-        if (status) console.log(status);
         if (isAuth) navigate('/')
     }, [isAuth, status, navigate])
 
@@ -38,7 +37,7 @@ const Registration = () => {
                         <input
                             name='input-reg'
                             placeholder='Login'
-                            type="text"
+                            type='text'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             className="input-reg input-reg_login"
@@ -52,7 +51,6 @@ const Registration = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             className="input-reg input-reg_pass"
                         />
-                        {/* <input name='input-pass' placeholder='Confirm password' type="password" className="input-reg input-reg_pass-confirm" /> */}
                         <button className='form-reg_btn' onClick={handleSubmit}>Submit</button>
                     </div>
                     <div className='image-container'>

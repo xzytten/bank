@@ -17,7 +17,6 @@ const Profile = () => {
 
     useEffect(() => {
         setProfileStatus(status)
-        console.log('profile')
     }, [status])
 
     useEffect(() => {

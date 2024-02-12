@@ -15,12 +15,13 @@ const MainPage = () => {
     const [pageStatus, setPageStatus] = useState('pending');
 
     const dispatch = useDispatch();
+    
     const isAuth = useSelector(checkIsAuth);
     const status = useSelector(state => state.auth.status);
+
     useEffect(() => {
         if (!isAuth) {
             if (!status) {
-                // Якщо статус не існує, встановлюємо pending та відправляємо запит
                 dispatch(getMe());
             } else {
                 setPageStatus(status);

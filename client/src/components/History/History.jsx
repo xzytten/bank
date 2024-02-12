@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMoreTransaction } from '../../redux/authSlice';
 import { useSpring, useTransition, animated, config } from 'react-spring';
-import Spent from '../TransactionBlock/Spent';
-import Arrived from '../TransactionBlock/Arrived';
+import { v4 as uuidv4 } from 'uuid';
+
+import Spent from '../TransactionBlock/transactionElement/Spent'
+import Arrived from '../TransactionBlock/transactionElement/Arrived'
 import Modal from '../TransactionBlock/Modal';
 import spinner from '../../img/svg/spiner.svg';
 
@@ -100,12 +102,6 @@ const History = () => {
         return `${month}. ${day} ${year}`;
     };
 
-    // Анімація для блоку транзакцій
-    const groupContainerProps = useSpring({
-        opacity: 1,
-        from: { opacity: 0 },
-        config: config.stiff,
-    });
 
     // Анімація для кнопки "load more"
     const loadMoreButtonProps = useSpring({
@@ -124,14 +120,14 @@ const History = () => {
     });
 
     return (
-        <animated.div style={groupContainerProps} className='cards-history-container'>
+        <div className='cards-history-container'>
             {transitions((style, item) => (
                 <animated.div key={item} style={{ ...style, flexShrink: 0 }}>
                     <div className='group_container'>
                         <div className='group_date'>{formatDate(item)}</div>
                         {groupedTransactions[item].map((transaction, index) => (
                             <TransactionItem
-                                key={transaction.trans.id}
+                                key={index}
                                 transaction={transaction}
                                 index={index}
                                 onClick={() => someFun(transaction)}
@@ -154,11 +150,14 @@ const History = () => {
                 )}
             </div>
             {transactionModal && <Modal transaction={dataTransaction} setTransactionModal={setTransactionModal} />}
-        </animated.div>
+        </div>
     );
+
+
 };
 
 const TransactionItem = ({ transaction, index, onClick }) => {
+
     const transactionProps = useSpring({
         opacity: 1,
         transform: 'translateY(0)',

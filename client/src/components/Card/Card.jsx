@@ -18,12 +18,6 @@ const Card = () => {
     const handleCopyClick = (e, element) => {
         e.stopPropagation();
         navigator.clipboard.writeText(element)
-          .then(() => {
-            console.log('Номер картки скопійовано у буфер обміну');
-          })
-          .catch((err) => {
-            console.error('Помилка при копіюванні номера картки: ', err);
-          });
       };
 
     useEffect(() => {
@@ -33,7 +27,6 @@ const Card = () => {
             } else {
                 setCash(cashCard);
             }
-
             setCardNumber(card.number);
             const date = `${card.expirationDate.slice(0, 4)}/${card.expirationDate.slice(5, 7)}`
             setExpirationDate(date);
@@ -46,7 +39,6 @@ const Card = () => {
     };
 
     const animatedCash = useSpring({ value: cash });
-
 
     return (
         <div className={`profile__card-info left-bar ${isFlipped ? 'flipped' : ''}`}>
@@ -78,7 +70,7 @@ const Card = () => {
             <div className='card__balance'>
                 <p>BALANCE</p>
                 <div className='card__cash'>
-                <animated.span>{animatedCash.value.interpolate((val) => Math.floor(val))}</animated.span> $</div>
+                <animated.span>{animatedCash.value.to((val) => Math.floor(val))}</animated.span> $</div>
             </div>
         </div>
     )

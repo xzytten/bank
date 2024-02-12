@@ -9,9 +9,11 @@ export const transactionCard = async (req, res) => {
 
         const senderCard = await Card.findOne({ number: sender })
         const recipientCard = await Card.findOne({ number: recipient })
-        const recipientUser = await User.findById(recipientCard.user).select("username img")
+        
         if (senderCard && recipientCard && sender !== recipient && senderCard.cash >= sum) {
 
+            const recipientUser = await User.findById(recipientCard.user).select("username img")
+            
             await Card.updateOne({ number: recipient }, { $inc: { cash: sum }, $inc: { 'cashHistory.income': sum } });
 
             await Card.updateOne({ number: sender }, { $inc: { cash: -sum }, $inc: { 'cashHistory.extence': sum } });
@@ -60,24 +62,26 @@ export const transactionCard = async (req, res) => {
                 transactionStatus: 'seccessful',
             })
 
+        } else if (!recipientCard) {
+            console.log('ok')
+            res.json({
+                transactionStatus: 'error',
+                message: "Card not found"
+            })
         } else if (senderCard.cash <= sum) {
             res.json({
                 transactionStatus: 'error',
                 message: "You don't have enough money"
             })
-        } else if (sender !== recipient) {
-            res.json({
-                transactionStatus: 'error',
-                message: "Card not found"
-            })
         } else {
             res.json({
                 transactionStatus: 'error',
-                message: "Transaction error"
+                message: "Transaction error",
             })
         }
     } catch (error) {
         res.json({
+            transactionStatus: 'error',
             message: 'Transaction error',
         })
     }

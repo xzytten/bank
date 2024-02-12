@@ -13,14 +13,12 @@ const Header = () => {
 
     const user = useSelector(selectUser)
 
-    const handleLogout = async () => {
+    const handleLogout = () => {
         try {
-            await dispatch(logout())
+            dispatch(logout())
             window.localStorage.removeItem('token')
-            console.log('logout')
-
         } catch (error) {
-            console.log(error)
+            throw(error)
         }
     }
 

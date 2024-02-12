@@ -22,7 +22,7 @@ export const registerAuth = async (req, res) => {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt);
 
-        let fileName
+        let fileName;
 
         if (req.files) {
             fileName = Date.now().toString() + req.files.img.name;
@@ -70,13 +70,13 @@ export const login = async (req, res) => {
         if (username && password) {
             const user = await User.findOne({ username });
             if (!user) {
-                return res.json('Error, user is not declared.')
+                return res.json({ message: { name: 'Error, user is not declared' } })
             }
 
             const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
             if (!isPasswordCorrect) {
-                return res.json('Password is uncorect')
+                return res.json({ message: { pass: 'Password is uncorect' } })
             }
 
             const token = jwt.sign({

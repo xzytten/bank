@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './TransactionElelement.css'
 
 const Arrived = ({ sum, user }) => {
     return (

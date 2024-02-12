@@ -1,57 +1,70 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkIsAuth, login } from '../../redux/authSlice';
+import { useForm } from 'react-hook-form';
 
-import './Login.css'
+import './Login.css';
 
 const Login = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+        defaultValues: {}, // Set defaultValues to an empty object
+    });
+    const isAuth = useSelector(checkIsAuth);
+    const { message } = useSelector(state => state.auth);
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const isAuth = useSelector(checkIsAuth)
-    const { status } = useSelector(state => state.auth);
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleSubmit = () => {
+    const onSubmit = async (formData, e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
         const data = new FormData();
-        data.append("username", username);
-        data.append("password", password);
-        dispatch(login(data))
-    }
+        data.append('username', formData.username);
+        data.append('password', formData.password);
+
+        try {
+            dispatch(login(data));
+            reset();
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     useEffect(() => {
-        if (isAuth) navigate('/')
-    }, [isAuth, status, navigate])
+        if (isAuth) navigate('/');
+    }, [isAuth, message, navigate]);
 
     return (
         <div className='conntainer-login'>
             <div className='form_container-login'>
                 <h2 className='title_login'>Sign in</h2>
-                <form action="" className='form_login' onSubmit={(e) => e.preventDefault()}>
+                <form onSubmit={handleSubmit(onSubmit)} className='form_login'>
                     <input
-                        name='input-login'
+                        {...register('username', { required: 'Username is required' })}
                         placeholder='Login'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        type="text" className="input input_login"
+                        type="text"
+                        className="input input_login"
                     />
+                    {errors.username && <p className="error-message-name">{errors.username.message}</p>}
+                    {message && <p className="error-message-name">{message?.name}</p>}
                     <input
-                        name='input-pass'
+                        {...register('password', { required: 'Password is required' })}
                         placeholder='Password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        type="password" className="input input_pass"
+                        type="password"
+                        className="input input_pass"
                     />
-                    <button onClick={handleSubmit} className='form_btn'>Submit</button>
+                    {errors.password && <p className="error-message-pass">{errors.password.message}</p>}
+                    {message && <p className="error-message-pass">{message?.pass}</p>}
+                    <button type="button" className='form_btn' disabled={isSubmitting} onClick={handleSubmit(onSubmit)}>
+                        {isSubmitting ? 'Submitting...' : 'Submit'}
+                    </button>
                 </form>
                 <Link to={"/register"} className='form_sign-in'>Register</Link>
-            </div>
+            </div>            
         </div>
     );
-}
+};
 
 export default Login;
