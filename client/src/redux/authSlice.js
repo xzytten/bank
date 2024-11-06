@@ -10,7 +10,9 @@ const initialState = {
     token: null,
     isLoading: null,
     status: null,
-    cashHistory: null
+    cashHistory: null,
+    registerMessage: null,
+    loginMessage: null
 };
 
 export const login = createAsyncThunk(
@@ -89,6 +91,12 @@ const authSlice = createSlice({
             state.isLoading = null
             state.status = null
             state.cashHistory = null
+            state.registerMessage = null
+            state.loginMessage = null
+        },
+        addNewTransaction: (state, action) => {
+            state.transactionHistory = [action.payload.trans, ...state.transactionHistory];
+            state.totalCountTransaction += 1;
         }
     },
     extraReducers: (builder) => {
@@ -102,7 +110,7 @@ const authSlice = createSlice({
                 state.isLoading = true;
                 state.user = action.payload.newUser;
                 state.token = action.payload.token;
-                state.status = action.payload.message;
+                state.registerMessage = action.payload.message;
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.isLoading = false;
@@ -118,7 +126,7 @@ const authSlice = createSlice({
                 state.isLoading = true;
                 state.user = action.payload.user;
                 state.token = action.payload.token;
-                state.status = action.payload.message;
+                state.loginMessage = action.payload.message;
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false;
@@ -168,7 +176,7 @@ export const { action, reducer } = authSlice;
 
 
 export const checkIsAuth = (state) => Boolean(state.auth.token);
-export const { logout } = authSlice.actions;
+export const { logout, addNewTransaction } = authSlice.actions;
 export const selectUser = (state) => state.auth.user;
 export const selectCard = (state) => state.auth.card;
 export default authSlice.reducer;

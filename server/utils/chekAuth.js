@@ -7,8 +7,7 @@ export const cheskAuth = (req, res, next) => {
         try {
             //Дістаємо id з токену
             const decoded = jwt.verify(token, 'ofghjiDFJBNuigjiopdfk9082348hgfjDFDirkd9o3');
-            
-            req.userId = decoded.id;
+            req.userId = decoded.id;    
 
             next();
         } catch (e) {

@@ -37,14 +37,15 @@ const ModalTransaction = ({ setModalCard, sumRepeat = '', cardRepeat = '' }) => 
         setModalCard(false);
         setModalSeccessful(false);
     }
-
     const handleSubmit = () => {
+        const senderCardNumber = sendCard.number.replace(/\s/g, ''); // Видаляємо всі пробіли з номера карти відправника
+        const recipientCardNumber = cardNumber.replace(/\s/g, ''); // Видаляємо всі пробіли з номера карти отримувача
         dispatch(cardTransaction({
-            sender: +sendCard.number,
-            recipient: +cardNumber,
+            sender: +senderCardNumber,
+            recipient: +recipientCardNumber,
             sum: +cash
         }));
-        toggleModalSeccessful()
+        toggleModalSeccessful();
     }
 
     const handleCardNumber = (e) => {
@@ -87,7 +88,8 @@ const ModalTransaction = ({ setModalCard, sumRepeat = '', cardRepeat = '' }) => 
                                         placeholder='xxxx xxxx xxxx xxxx'
                                     />
                                 </label>
-                                <button className='modal_transaction-submit' onClick={handleSubmit}>Submit</button>
+                                <button className={`modal_transaction-submit ${cash <= 0 ? 'disabled' : ''}`} onClick={handleSubmit} disabled={cash <= 0 ? true : false}>Submit</button>
+
                             </div>
                         </form>
                     </div>

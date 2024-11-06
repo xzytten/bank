@@ -1,22 +1,25 @@
+import { io, userSockets } from "../index.js";
+
 import Card from "../models/Card.js";
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
-import { io } from "../index.js";
+
 
 export const transactionCard = async (req, res) => {
     try {
         const { sender, recipient, sum } = req.body;
-
         const senderCard = await Card.findOne({ number: sender })
         const recipientCard = await Card.findOne({ number: recipient })
         const recipientUser = await User.findById(recipientCard.user).select("username img")
+        const senderUser = await User.findById(senderCard.user).select("username img")
+
+        const senderUserId = senderCard.user.toString();
+        const recipientUserId = recipientCard.user.toString();
+
         if (senderCard && recipientCard && sender !== recipient && senderCard.cash >= sum) {
-
-            await Card.updateOne({ number: recipient }, { $inc: { cash: sum }, $inc: { 'cashHistory.income': sum } });
-
-            await Card.updateOne({ number: sender }, { $inc: { cash: -sum }, $inc: { 'cashHistory.extence': sum } });
-
-            const mainCard = await Card.findOne({ number: sender });
+            await Card.updateOne({ number: recipient }, { $inc: { cash: sum, 'cashHistory.income': sum } });
+            
+            await Card.updateOne({ number: sender }, { $inc: { cash: -sum, 'cashHistory.extence': sum } });
 
             const newTransaction = new Transaction({
                 sender,
@@ -28,6 +31,9 @@ export const transactionCard = async (req, res) => {
             })
 
             await newTransaction.save();
+
+            const mainCard = await Card.findOne({ number: sender });
+            const newRecipientCard = await Card.findOne({ number: recipient })
 
             await User.findByIdAndUpdate(senderCard.user, {
                 $push: {
@@ -46,16 +52,45 @@ export const transactionCard = async (req, res) => {
                     }
                 }
             });
-            res.json({
-                cash: mainCard.cash,
-                newTransaction: {
-                    trans: newTransaction,
-                    typeTransaction: 'send',
-                    recipientUser: {
-                        username: recipientUser.username,
-                        img: recipientUser.img
+
+            const recipientSocketSocketId = userSockets.get(recipientUserId.toString());
+            
+            if (recipientSocketSocketId) {
+                io.to(recipientSocketSocketId).emit('balanceUpdate', {
+                    sender,
+                    newTransaction: {
+                        trans: newTransaction,
+                        cash: newRecipientCard.cash,
+                        typeTransaction: 'recipient',
+                        users: {
+                            username: senderUser.username,
+                            img: senderUser.img
+                        },
                     },
-                },
+                    cashHistory: newRecipientCard.cashHistory,
+                    transactionStatus: 'successful',
+                });
+            }
+
+            const senderSocketSocketId = userSockets.get(senderUserId.toString());
+
+            if (senderSocketSocketId) {
+                io.to(senderSocketSocketId).emit('balanceUpdate', {
+                    sender,
+                    newTransaction: {
+                        trans: newTransaction,
+                        cash: mainCard.cash,
+                        typeTransaction: 'send',
+                        recipientUser: {
+                            username: recipientUser.username,
+                            img: recipientUser.img
+                        },
+                    },
+                    cashHistory: mainCard.cashHistory,
+                    transactionStatus: 'successful',
+                });
+            }
+            res.json({
                 cashHistory: mainCard.cashHistory,
                 transactionStatus: 'seccessful',
             })
@@ -70,6 +105,11 @@ export const transactionCard = async (req, res) => {
                 transactionStatus: 'error',
                 message: "Card not found"
             })
+        } else if (!recipientCard) {
+            res.json({
+                transactionStatus: 'error',
+                message: "Card not found"
+            });
         } else {
             res.json({
                 transactionStatus: 'error',

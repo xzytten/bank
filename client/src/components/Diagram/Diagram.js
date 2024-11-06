@@ -5,12 +5,12 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import './Diagram.css';
 
-const Diagram = (props) => {
+const Diagram = () => {
     ChartJS.register(ArcElement, Tooltip, Legend);
 
     const cardCashHistory = useSelector(state => state.auth.cashHistory);
     const transCashHistory = useSelector(state => state.transaction.cashHistory);
-
+    
     const [income, setIncome] = useState(0);
     const [extence, setExtence] = useState(0);
 
@@ -24,7 +24,6 @@ const Diagram = (props) => {
         }
     }, [cardCashHistory, transCashHistory]);
 
-    // Анімація для числових значень
     const animatedIncome = useSpring({ value: income });
     const animatedExtence = useSpring({ value: extence });
     const data = {

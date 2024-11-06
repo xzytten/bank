@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Login from './components/Login/Login'
 import MainPage from './components/MainPage/MainPage'
 import { Provider } from 'react-redux';
 

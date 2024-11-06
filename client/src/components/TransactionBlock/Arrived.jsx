@@ -8,7 +8,7 @@ const Arrived = ({ sum, user }) => {
                 <span className='arived-logo-ico transfer-history-ico'></span>
             </p>
             <div className='data__transaction'>
-                <img className="trnsaction_user_img" src={`http://localhost:3003/${user.img}`} alt="" />
+                <img className="trnsaction_user_img" src={`http://localhost:3003/${user?.img}`} alt="" />
                 <span className='trnsaction_user_name'>{user.username}</span>
             </div>
             <div className='arived__amount'>

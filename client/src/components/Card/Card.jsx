@@ -18,12 +18,6 @@ const Card = () => {
     const handleCopyClick = (e, element) => {
         e.stopPropagation();
         navigator.clipboard.writeText(element)
-          .then(() => {
-            console.log('Номер картки скопійовано у буфер обміну');
-          })
-          .catch((err) => {
-            console.error('Помилка при копіюванні номера картки: ', err);
-          });
       };
 
     useEffect(() => {
@@ -46,7 +40,6 @@ const Card = () => {
     };
 
     const animatedCash = useSpring({ value: cash });
-
 
     return (
         <div className={`profile__card-info left-bar ${isFlipped ? 'flipped' : ''}`}>

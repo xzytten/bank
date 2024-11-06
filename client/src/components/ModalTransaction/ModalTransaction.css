@@ -104,3 +104,13 @@
     box-shadow: 0px 0px 15px rgba(154, 154, 154, 0.203);
     outline: none;
 }
+
+.disabled {
+    cursor: default;
+    box-shadow: none;
+}
+
+.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}

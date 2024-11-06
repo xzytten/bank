@@ -1,5 +1,6 @@
 .header {
-    width: 1200px;
+    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -13,7 +14,6 @@
     width: 200px;
     border-radius: 10px;
     position: relative;
-    /* Додано для позиціонування дочірніх елементів */
 }
 
 .header__logo-ico {
@@ -24,18 +24,15 @@
     background-size: 100%;
     display: inline-block;
     position: absolute;
-    /* Позиціонуємо абсолютно відносно батьківського елемента */
     bottom: 9px;
     left: 2px;
     z-index: 2;
-    /* Збільште значення z-index для виводу поверх тексту */
 }
 
 .header__logo-name {
     font-size: 33px;
     position: absolute;
     z-index: 1;
-    /* Зменште значення z-index для тексту, щоб його не перекривало фото */
 }
 
 /* ---- profile ---- */
@@ -72,7 +69,6 @@
 
 .you-profile-photo-border {
     border: 2px solid #fff;
-    /* Додайте білу рамку */
 }
 
 .no-logged {

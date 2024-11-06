@@ -70,13 +70,13 @@ export const login = async (req, res) => {
         if (username && password) {
             const user = await User.findOne({ username });
             if (!user) {
-                return res.json('Error, user is not declared.')
+                return res.json({ message: 'Your login or password is not correct' })
             }
 
             const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
             if (!isPasswordCorrect) {
-                return res.json('Password is uncorect')
+                return res.json({ message: 'Your login or password is not correct' })
             }
 
             const token = jwt.sign({

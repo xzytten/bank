@@ -34,6 +34,7 @@ const Modal = ({ transaction, setTransactionModal }) => {
         } else {
             dispatch(getUser({ cardId: transaction.trans.idRecipient }));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [transaction]);
 
     useEffect(() => {

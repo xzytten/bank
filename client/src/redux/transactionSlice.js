@@ -33,7 +33,15 @@ export const getUser = createAsyncThunk(
 export const transactionSlice = createSlice({
     name: 'transaction',
     initialState,
-    reducers: {},
+    reducers: {
+        updateCardBalance: (state, action) => {
+            state.cash = action.payload.newBalance;
+        },
+        updateCachHistory : (state, action) => {
+            console.log(action.payload)
+            state.cashHistory = action.payload.cashHistory;
+        }
+    },
     extraReducers: (builder) => {
         builder
 
@@ -67,5 +75,5 @@ export const transactionSlice = createSlice({
             })
     }
 })
-
+export const { updateCardBalance, updateCachHistory } = transactionSlice.actions;
 export default transactionSlice.reducer;

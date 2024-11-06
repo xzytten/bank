@@ -17,6 +17,7 @@ const MainPage = () => {
     const dispatch = useDispatch();
     const isAuth = useSelector(checkIsAuth);
     const status = useSelector(state => state.auth.status);
+    
     useEffect(() => {
         if (!isAuth) {
             if (!status) {
@@ -29,7 +30,7 @@ const MainPage = () => {
             setPageStatus('')
         }
 
-    }, [dispatch, status]);
+    }, [dispatch, isAuth, status]);
 
     return (
         <Router>

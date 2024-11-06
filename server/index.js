@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import http from 'http';
-import { initializeSocket } from './socketManagaer.js'; 
+import { Server } from "socket.io";
 
 import authRouter from './routes/auth.js';
 import transactionRouter from './routes/transaction.js';
@@ -12,6 +12,12 @@ import transactionRouter from './routes/transaction.js';
 const app = express();
 const _PORT = 3003;
 const _DBURL = 'mongodb+srv://user:user@cluster0.w76pyo7.mongodb.net/';
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+  },
+});
 
 app.use(cors({ origin: '*' }));
 app.use(fileUpload());
@@ -29,13 +35,24 @@ async function connectDataBase(_DBURL) {
   }
 }
 
-const server = http.createServer(app);
-export const io = initializeSocket(server);  // Оновлено: передаємо server
+
+const userSockets = new Map();
+
+io.on('connection', (socket) => {
+  const userId = socket.handshake.query.userId;
+
+  userSockets.set(userId, socket.id);
+
+  socket.on('disconnect', () => {
+    userSockets.delete(userId);
+  });
+});
+
+
 
 async function createServer() {
   try {
     await connectDataBase(_DBURL);
-
     server.listen(_PORT, () => {
       console.log(`Server listening on port ${_PORT}`);
     });
@@ -45,3 +62,6 @@ async function createServer() {
 }
 
 createServer();
+
+
+export { io, userSockets }; 
