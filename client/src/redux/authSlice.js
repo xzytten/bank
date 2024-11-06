@@ -11,8 +11,12 @@ const initialState = {
     isLoading: null,
     status: null,
     cashHistory: null,
+<<<<<<< HEAD
     registerMessage: null,
     loginMessage: null
+=======
+    message: null,
+>>>>>>> origin/main
 };
 
 export const login = createAsyncThunk(
@@ -126,11 +130,17 @@ const authSlice = createSlice({
                 state.isLoading = true;
                 state.user = action.payload.user;
                 state.token = action.payload.token;
+<<<<<<< HEAD
                 state.loginMessage = action.payload.message;
+=======
+                state.message = action.payload.message;
+                state.status = 'fulfilled';
+>>>>>>> origin/main
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false;
-                state.status = action.payload.message;
+                state.message = action.payload.message;
+                state.status = 'rejected';
             })
 
             //  getMe

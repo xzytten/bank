@@ -48,8 +48,7 @@
 }
 
 .input_login {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 
 .input_pass {
@@ -59,7 +58,7 @@
 
 .form_btn {
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 50px;
     outline: none;
     background-color: #131313;
     color: white;
@@ -83,6 +82,22 @@
     flex-wrap: wrap;
 }
 
+
+.error-message-name {
+    position:absolute;
+    left: 75px;
+    top: 160px;
+    font-size: 14px;
+    color: red;
+}
+
+.error-message-pass {
+    position:absolute;
+    left: 75px;
+    top: 238px;
+    font-size: 14px;
+    color: red;
+}
 
 /*--- hover ---*/
 

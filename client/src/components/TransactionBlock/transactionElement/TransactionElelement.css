@@ -1,0 +1,53 @@
+.spent_money,
+.arrived_money {
+    width: 560px;
+    height: 100px;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.148);
+    border-radius: 15px;
+    justify-content: space-around;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.320);
+}
+
+.data__transaction,
+.spent__amount,
+.arived__amount {
+    font-size: 18px;
+    margin-top: 38px;
+}
+
+.spent-logo {
+    background-color: rgba(94, 53, 164, 0.111);
+    box-shadow: 0px 0px 15px rgba(94, 53, 164, 0.373);
+}
+
+
+.arived-logo {
+    background: rgba(83, 150, 109, 0.111);
+    box-shadow: 0px 0px 15px rgba(22, 100, 51, 0.373);
+}
+
+.arived-logo-ico {
+    background: url('../../../img/svg/income-ico.png') no-repeat;
+}
+
+.spent-logo-ico {
+    background: url('../../../img/svg/extence-icon.png') no-repeat;
+}
+
+.arived__amount {
+    color: rgba(2, 114, 2, 0.643);
+}
+
+.spent_money,
+.arrived_money {
+    transition: transform 0.15s;
+}
+
+.spent_money:hover,
+.arrived_money:hover {
+    transform: scale(1.025);
+    cursor: pointer;
+}

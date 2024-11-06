@@ -3,9 +3,14 @@ import { useSelector } from 'react-redux';
 import { useSpring, animated } from 'react-spring';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+
 import './Diagram.css';
 
 const Diagram = () => {
+<<<<<<< HEAD:client/src/components/Diagram/Diagram.js
+=======
+
+>>>>>>> origin/main:client/src/components/Diagram/Diagram.jsx
     ChartJS.register(ArcElement, Tooltip, Legend);
 
     const cardCashHistory = useSelector(state => state.auth.cashHistory);
@@ -26,11 +31,12 @@ const Diagram = () => {
 
     const animatedIncome = useSpring({ value: income });
     const animatedExtence = useSpring({ value: extence });
-    const data = {
+
+    const diagramData = {
         labels: ['Income', 'Extence'],
         datasets: [
             {
-                data: [income, extence],
+                data: [+`${income === 0 && extence === 0 ? 50 : income}`, +`${income === 0 && extence === 0 ? 50 : extence}`],
                 backgroundColor: [
                     'rgba(83, 150, 109, 0.237)',
                     'rgba(94, 53, 164, 0.237)',
@@ -44,13 +50,14 @@ const Diagram = () => {
         ],
     };
 
-    const options = {
+    const diagramOptions = {
         cutout: '60%',
         plugins: {
             legend: {
                 display: false,
             },
             tooltip: {
+                enabled: false,
                 displayColors: false,
             },
         },
@@ -60,7 +67,7 @@ const Diagram = () => {
         <div>
             <div className="diagram-container">
                 <div className='diagram_cont'>
-                    <Doughnut data={data} options={options} />
+                    <Doughnut data={diagramData} options={diagramOptions} />
                 </div>
             </div>
             <div className="progerss-container">
@@ -68,14 +75,14 @@ const Diagram = () => {
                     <span className="income">
                         Income:
                         <p className="income-cash">
-                            <animated.span>{animatedIncome.value.interpolate((val) => Math.floor(val))}</animated.span>
+                            <animated.span>{animatedIncome.value.to((val) => Math.floor(val))}</animated.span>
                         </p>
                     </span>
                 </div>
                 <div className="extense-container">
                     <span className="extense">Extence:
                         <p className="extense-cash">
-                            <animated.span>{animatedExtence.value.interpolate((val) => Math.floor(val))}</animated.span>
+                            <animated.span>{animatedExtence.value.to((val) => Math.floor(val))}</animated.span>
                         </p></span>
                 </div>
             </div>

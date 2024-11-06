@@ -27,7 +27,6 @@ const Card = () => {
             } else {
                 setCash(cashCard);
             }
-
             setCardNumber(card.number);
             const date = `${card.expirationDate.slice(0, 4)}/${card.expirationDate.slice(5, 7)}`
             setExpirationDate(date);
@@ -71,7 +70,7 @@ const Card = () => {
             <div className='card__balance'>
                 <p>BALANCE</p>
                 <div className='card__cash'>
-                <animated.span>{animatedCash.value.interpolate((val) => Math.floor(val))}</animated.span> $</div>
+                <animated.span>{animatedCash.value.to((val) => Math.floor(val))}</animated.span> $</div>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './TransactionElelement.css'
 const Spent = ({ sum, newUser, user }) => {
     return (
         <div className='spent_money' >

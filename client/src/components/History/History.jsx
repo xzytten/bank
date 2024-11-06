@@ -93,7 +93,7 @@ const History = () => {
     });
 
     return (
-        <animated.div style={groupContainerProps} className='cards-history-container'>
+        <div className='cards-history-container'>
             {transitions((style, item) => (
                 <animated.div key={item} style={{ ...style, flexShrink: 0 }}>
                     <div className='group_container'>
@@ -122,7 +122,7 @@ const History = () => {
                 )}
             </div>
             {transactionModal && <Modal transaction={modalTransaction} setTransactionModal={setTransactionModal} />}
-        </animated.div>
+        </div>
     );
 };
 

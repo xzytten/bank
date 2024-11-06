@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,12 +5,17 @@ import { checkIsAuth, login } from '../../redux/authSlice';
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
 
-import './Login.css'
+import './Login.css';
 
 const Login = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+        defaultValues: {}, // Set defaultValues to an empty object
+    });
+    const isAuth = useSelector(checkIsAuth);
+    const { message } = useSelector(state => state.auth);
 
     const [isChanged, setIsChanged] = useState(true)
-    const isAuth = useSelector(checkIsAuth)
     const [statusAuth, setStatusAuth] = useState(null)
     const { loginMessage } = useSelector(state => state.auth);
 
@@ -98,9 +102,9 @@ const Login = () => {
                     <button type='submit' className='form_btn'>Submit</button>
                 </form>
                 <Link to={"/register"} className='form_sign-in'>Register</Link>
-            </div>
+            </div>            
         </div>
     );
-}
+};
 
 export default Login;

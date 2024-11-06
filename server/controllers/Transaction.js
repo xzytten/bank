@@ -10,6 +10,7 @@ export const transactionCard = async (req, res) => {
         const { sender, recipient, sum } = req.body;
         const senderCard = await Card.findOne({ number: sender })
         const recipientCard = await Card.findOne({ number: recipient })
+<<<<<<< HEAD
         const recipientUser = await User.findById(recipientCard.user).select("username img")
         const senderUser = await User.findById(senderCard.user).select("username img")
 
@@ -20,6 +21,18 @@ export const transactionCard = async (req, res) => {
             await Card.updateOne({ number: recipient }, { $inc: { cash: sum, 'cashHistory.income': sum } });
             
             await Card.updateOne({ number: sender }, { $inc: { cash: -sum, 'cashHistory.extence': sum } });
+=======
+        
+        if (senderCard && recipientCard && sender !== recipient && senderCard.cash >= sum) {
+
+            const recipientUser = await User.findById(recipientCard.user).select("username img")
+            
+            await Card.updateOne({ number: recipient }, { $inc: { cash: sum }, $inc: { 'cashHistory.income': sum } });
+
+            await Card.updateOne({ number: sender }, { $inc: { cash: -sum }, $inc: { 'cashHistory.extence': sum } });
+
+            const mainCard = await Card.findOne({ number: sender });
+>>>>>>> origin/main
 
             const newTransaction = new Transaction({
                 sender,
@@ -95,11 +108,18 @@ export const transactionCard = async (req, res) => {
                 transactionStatus: 'seccessful',
             })
 
+        } else if (!recipientCard) {
+            console.log('ok')
+            res.json({
+                transactionStatus: 'error',
+                message: "Card not found"
+            })
         } else if (senderCard.cash <= sum) {
             res.json({
                 transactionStatus: 'error',
                 message: "You don't have enough money"
             })
+<<<<<<< HEAD
         } else if (sender !== recipient) {
             res.json({
                 transactionStatus: 'error',
@@ -110,14 +130,17 @@ export const transactionCard = async (req, res) => {
                 transactionStatus: 'error',
                 message: "Card not found"
             });
+=======
+>>>>>>> origin/main
         } else {
             res.json({
                 transactionStatus: 'error',
-                message: "Transaction error"
+                message: "Transaction error",
             })
         }
     } catch (error) {
         res.json({
+            transactionStatus: 'error',
             message: 'Transaction error',
         })
     }
